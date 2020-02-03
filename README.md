@@ -36,7 +36,7 @@ in the same directory as the script.
 ## Configuring Scripts
 
 Modify APP_DIR and APP_DIR_CONF variables in each script to reflect the name
-of you application.  For example:
+of your application.  For example:
 
 - APP_DIR = coolapp
 - APP_DIR_CONF = coolapp_conf
