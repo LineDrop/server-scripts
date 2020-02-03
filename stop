@@ -1,0 +1,9 @@
+#!/bin/bash
+
+APP_DIR=code
+
+echo Stopping application
+
+kill $(cat /var/www/$APP_DIR/RUNNING_PID)
+
+echo Done!
