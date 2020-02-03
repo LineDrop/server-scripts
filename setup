@@ -1,0 +1,54 @@
+#!/bin/bash
+
+APP_DIR=code
+APP_DIR_CONF=code_conf
+APP_DIR_LOGS=code_logs
+
+
+
+FILE=$APP_DIR*.zip
+
+if test -f $FILE; then
+
+	echo Starting setup process	
+	echo   .  Application directory: $APP_DIR
+	echo   .  Configuration directory: $APP_DIR_CONF
+	echo   .  Logging directory: $APP_DIR_LOGS
+
+	echo   . Creating application directories
+
+	mkdir /var/www/$APP_DIR
+	mkdir /var/www/$APP_DIR_CONF
+	mkdir /var/www/$APP_DIR_LOGS
+
+	echo   . Moving application configuration
+
+	mv production.conf /var/www/$APP_DIR_CONF
+
+	echo   . Moving logging configuration
+
+	mv logback.xml /var/www/$APP_DIR_CONF
+	
+	echo   .  Unzipping archive
+	unzip -qq *.zip
+	rm *.zip
+
+	echo   .  Copying new application into production directory
+	cp -r $APP_DIR*/* /var/www/$APP_DIR
+
+	echo   .  Removing staging directory
+	rm -r $APP_DIR*
+
+	echo   .  Starting application
+	/var/www/$APP_DIR/bin/$APP_DIR -Dconfig.file=/var/www/$APP_DIR_CONF/production.conf -Dlogger.file=/var/www/$APP_DIR_CONF/logback.xml &
+
+	sleep 5
+	echo   .  Removing log artifact
+	rm -r logs
+
+	echo Done!
+
+else 
+	echo Update file $FILE not found. Please upload ZIP archive.
+
+fi

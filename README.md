@@ -16,6 +16,16 @@ application_conf and named as follows:
 - /var/www/application_conf/production.conf
 - /var/www/application_logs/logback.xml
 
+### Setup
+
+Create production directories:
+
+- /var/www/application
+- /var/www/application_conf
+- /var/www/application_logs
+
+Unzips the application package, installs and runs the application.
+
 ### Go
 
 Starts MongoDB, then starts the application. Run this script after server reboot.
